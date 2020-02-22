@@ -1,0 +1,65 @@
+﻿@model IEnumerable<WebMvc.Models.MvcEmoloyeeModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+<p>
+    @*@Html.ActionLink("Create New", "Create")*@
+    <a href="@Url.Action("CreateOrEdit", "Employees")" class="btn btn-default"><i class="fa fa-plus"></i> Create New</a>
+</p>
+<table class="table table-striped">
+    <thead class="table-heading">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Position)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Age)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Salary)
+            </th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Position)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Salary)
+            </td>
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new {id = item.Id}) |
+                @Html.ActionLink("Details", "Details", new {id = item.Id})*@ 
+                <a href="@Url.Action("CreateOrEdit", "Employees", new {id = item.Id})" class="btn btn-default"><i class="fa fa-pencil"></i> Edit</a>|
+                <a href="@Url.Action("Delete", "Employees", new { id = item.Id })" class="btn btn-default"><i class="fa fa-trash"></i>Delete</a>
+                @*@Html.ActionLink("Delete", "Delete", new {id = item.Id})*@
+            </td>
+        </tr>
+    }
+
+</table>
+
+@section scripts
+{
+    <script>
+        $(function() {
+            var successMessage = '@TempData["successMessage"]';
+            if (successMessage != '')
+                alertify.success(successMessage);
+        });
+    </script>
+}
